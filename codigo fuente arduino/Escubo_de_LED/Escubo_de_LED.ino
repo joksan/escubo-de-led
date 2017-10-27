@@ -14,12 +14,12 @@ void loop() {
   //aroDiagonal();
 
   todasLasAnimaciones();
-/*
-  llenarPlano(0, 0, magenta);
-  llenarPlano(0, 1, magenta);
-  llenarPlano(0, 2, magenta);
-  llenarPlano(0, 3, magenta);
-*/
+  /*
+    llenarPlano(0, 0, magenta);
+    llenarPlano(0, 1, magenta);
+    llenarPlano(0, 2, magenta);
+    llenarPlano(0, 3, magenta);
+  */
   actualizarCubo();
 }
 
@@ -49,9 +49,9 @@ void limpiarCubo() {
   byte i, j, k;
 
   //Simplemente barre los 3 ejes apagando cada LED
-  for (i=0; i<4; i++)
-    for (j=0; j<4; j++)
-      for (k=0; k<4; k++)
+  for (i = 0; i < 4; i++)
+    for (j = 0; j < 4; j++)
+      for (k = 0; k < 4; k++)
         escribirLED(i, j, k, 0);
 }
 
@@ -117,19 +117,19 @@ void planosDesplazando() {
     case 0: llenarPlano(0, paso, rojo); break;
     case 1: llenarPlano(1, paso, verde); break;
     case 2: llenarPlano(2, paso, azul); break;
-    case 3: llenarPlano(0, 3-paso, amarillo); break;
-    case 4: llenarPlano(1, 3-paso, cyan); break;
-    case 5: llenarPlano(2, 3-paso, magenta); break;
+    case 3: llenarPlano(0, 3 - paso, amarillo); break;
+    case 4: llenarPlano(1, 3 - paso, cyan); break;
+    case 5: llenarPlano(2, 3 - paso, magenta); break;
   }
 
   //Realiza un conteo de retardo modular, cambiando
   //primero los pasos (4 en total para llenar todo el cubo)
   //y luego las etapas (6 en total)
-  conteo = (conteo < 19)? conteo+1: 0;
+  conteo = (conteo < 19) ? conteo + 1 : 0;
   if (conteo == 0) {
-    paso = (paso < 3)? paso+1: 0;
+    paso = (paso < 3) ? paso + 1 : 0;
     if (paso == 0) {
-      etapa = (etapa < 5)? etapa+1: 0;
+      etapa = (etapa < 5) ? etapa + 1 : 0;
     }
   }
 }
@@ -163,21 +163,21 @@ void planoRotando() {
 
   //Lleva a cabo un conteo modular de 10 frames entre pasos
   //de animacion
-  conteo = (conteo < 9)? conteo+1: 0;
+  conteo = (conteo < 9) ? conteo + 1 : 0;
   if (conteo == 0) {
     //La animacion toma en total 45 pasos, 15 por cada eje
-    paso = (paso < 44)? paso+1: 0;
+    paso = (paso < 44) ? paso + 1 : 0;
 
     //El angulo tambien se incrementa en cada paso de animacion,
     //pero cuenta modularmente 6 pasos
-    ang = (ang < 5)? ang+1: 0;
+    ang = (ang < 5) ? ang + 1 : 0;
 
     //Cada vez que se repite la animacion reinicia el eje de rotacion
     //y el angulo al valor inicial
     if (paso == 0) {
       eje = 0;
       ang = 0;
-      color = (color < 7)? color + 1: 1;
+      color = (color < 7) ? color + 1 : 1;
     }
     //Cuando se avanza al paso 15 y 30 se cambia de eje (pero no se
     //reinicializa el angulo)
@@ -225,11 +225,11 @@ void aroDiagonal() {
 
   //Se incrementa la cuenta de espera, haciendo un conteo
   //modular
-  conteo = (conteo < 19)? conteo+1: 0;
+  conteo = (conteo < 19) ? conteo + 1 : 0;
   if (conteo == 0) {
     //Cuando la cuenta cicla, se incrementa el paso en
     //form modular (de 0 a 11)
-    paso = (paso < 11)? paso + 1: 0;
+    paso = (paso < 11) ? paso + 1 : 0;
     if (paso == 0)
       //Cada vez que la animacion reinicia, se cambia el
       //color al azar
@@ -238,7 +238,7 @@ void aroDiagonal() {
 
   //Limpia el cubo antes de dibujar
   limpiarCubo();
-  for (i=0; i<12; i++) {
+  for (i = 0; i < 12; i++) {
     //Dibuja el LED en la posicion actual
     escribirLED(posX, posY, posZ, color);
 
@@ -248,13 +248,25 @@ void aroDiagonal() {
     posZ += dirZ;
 
     //Si se avanzo totalmente a X+, se dirige a Y+
-    if (dirX ==  1 && posX == 3) { dirX =  0; dirY =  1; }
+    if (dirX ==  1 && posX == 3) {
+      dirX =  0;
+      dirY =  1;
+    }
     //Si se avanzo totalmente a Y+, se dirige a X-
-    if (dirY ==  1 && posY == 3) { dirX = -1; dirY =  0; }
+    if (dirY ==  1 && posY == 3) {
+      dirX = -1;
+      dirY =  0;
+    }
     //Si llego a X-, avanza a Y-
-    if (dirX == -1 && posX == 0) { dirX =  0; dirY = -1; }
+    if (dirX == -1 && posX == 0) {
+      dirX =  0;
+      dirY = -1;
+    }
     //Si llego a Y-, reinicia hacia X+
-    if (dirY == -1 && posY == 0) { dirX =  1; dirY =  0; }
+    if (dirY == -1 && posY == 0) {
+      dirX =  1;
+      dirY =  0;
+    }
 
     //Si se llego al fondo Z+, avanza hacia Z-
     if (dirZ ==  1 && posZ == 3) dirZ = -1;
@@ -262,3 +274,7 @@ void aroDiagonal() {
     if (dirZ == -1 && posZ == 0) dirZ =  1;
   }
 }
+
+/* GNU GENERAL PUBLIC LICENSE - Version 3, 29 June 2007
+  Copyright (C) 2007 Free Software Foundation, Inc. */
+
